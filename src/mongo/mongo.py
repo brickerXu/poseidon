@@ -13,53 +13,53 @@ HOST = 'localhost'
 PORT = 27017
 
 class Mongo(object):
-    def __init__(self, host, port, userName = None, password = None, serverSelectionTimeoutS = 10):
-        if isNull(host):
-            self.HOST = HOST
+    def __init__(self, host, port, user_name = None, password = None, server_selection_timeout = 10):
+        if is_null(host):
+            self.host = HOST
         else:
-            self.HOST = host
-        if port == None:
-            self.PORT = PORT
+            self.host = host
+        if port is None:
+            self.port = PORT
         else:
             if not isinstance(port, int):
                 raise TypeError("port must be an instance of int.")
-            self.PORT = port
-        if (isNull(userName) and isNull(password)) or (not isNull(userName) and not isNull(password)):
-            self.USERNAME = userName
-            self.PASSWORD = password
+            self.port = port
+        if (is_null(user_name) and is_null(password)) or (not is_null(user_name) and not is_null(password)):
+            self.username = user_name
+            self.password = password
         else:
             raise TypeError("userName and password, Both must be empty at the same time or not at the same time.")
-        self.SERVERSELECTIONTIMEOUTS = serverSelectionTimeoutS
+        self.server_selection_timeout = server_selection_timeout
 
         try:
-            self.client = MongoClient(host=host, port=port, username=userName, password=password, serverSelectionTimeoutMS=serverSelectionTimeoutS*1000)
+            self.client = MongoClient(host=host, port=port, username=user_name, password=password, serverSelectionTimeoutMS=server_selection_timeout*1000)
             self.client.admin.command('ping')
             self.connect = True
         except ServerSelectionTimeoutError:
             self.connect = False
 
-    def getCollections(self, database):
-        db = self.getDataBase(database)
+    def get_collections(self, database):
+        db = self.get_database(database)
         return db.list_collection_names()
 
-    def getCollection(self, database, collection):
-        collections = self.getCollections(database)
+    def get_collection(self, database, collection):
+        collections = self.get_collections(database)
         if collection in collections:
             return collections[collection]
         else:
             raise CollectionNotFoundError
 
-    def getDataBases(self):
+    def get_databases(self):
         if self.connect:
-            return self.client.list_database_names();
+            return self.client.list_database_names()
         else:
             raise MongoDisconnectError()
 
-    def getDataBase(self, database):
-        if database in self.getDataBases():
+    def get_database(self, database):
+        if database in self.get_databases():
             return self.client[database]
         else:
             raise DatabaseNotFoundError()
 
-    def getClient(self):
+    def get_client(self):
         return self.client

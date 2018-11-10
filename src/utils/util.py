@@ -3,5 +3,5 @@
 # @date 2018/11/9
 # @file util.py
 
-def isNull(str):
+def is_null(str):
     return None == str or str == ''
