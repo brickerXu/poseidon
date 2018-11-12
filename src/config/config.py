@@ -57,12 +57,12 @@ class MongoConfig(Config):
         super(MongoConfig, self).__init__(directory.mongo_config_path)
         self.SECTION = 'default'
     def get_host(self):
-        return self.config.get(self.SECTION, 'db_host')
+        return self.config.get(self.SECTION, 'host')
     def get_port(self):
-        port = self.config.get(self.SECTION, 'db_port')
+        port = self.config.get(self.SECTION, 'port')
         if is_number(port):
             return int(port)
         else:
             return None
     def get_name(self):
-        return self.config.get(self.SECTION, 'db_name')
+        return self.config.get(self.SECTION, 'name')
