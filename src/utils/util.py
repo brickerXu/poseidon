@@ -3,5 +3,13 @@
 # @date 2018/11/9
 # @file util.py
 
-def is_null(str):
-    return None == str or str == ''
+import re
+
+NUMBER_RE = re.compile(r'^[0-9]+$')
+
+def is_null(string):
+    return None == string or string == ''
+
+def is_number(string):
+    return not NUMBER_RE.match(string) is None
+
