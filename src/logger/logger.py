@@ -11,8 +11,8 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 from os import path
 
-from common.directory import directory
-from common.constants import *
+from common import directory
+from common import constants
 
 
 class Logger(object):
@@ -51,8 +51,8 @@ class Logger(object):
 
         # 创建handler
         ch = logging.StreamHandler()
-        trfh = TimedRotatingFileHandler(file, when='D', interval=1, backupCount=7, encoding=DEFAULT_CHARSET)
-        trfh_all = TimedRotatingFileHandler(path.join(directory.log_dir, 'all.log'), when='D', interval=1, backupCount=7, encoding=DEFAULT_CHARSET)
+        trfh = TimedRotatingFileHandler(file, when='D', interval=1, backupCount=7, encoding=constants.DEFAULT_CHARSET)
+        trfh_all = TimedRotatingFileHandler(path.join(directory.log_dir, 'all.log'), when='D', interval=1, backupCount=7, encoding=constants.DEFAULT_CHARSET)
         # 为handler指定输出格式，注意大小写
         trfh.setFormatter(formatter)
         trfh_all.setFormatter(formatter)

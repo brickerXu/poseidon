@@ -28,6 +28,9 @@ class Directory(object):
         if not path.exists(self.mongo_config_path):
             file = open(self.mongo_config_path, 'w')
             file.close()
+        self.export_dir = path.join(self.base_dir, 'export')
+        if not path.exists(self.export_dir):
+            os.makedirs(self.export_dir)
 
     '''
     获取根目录

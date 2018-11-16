@@ -12,9 +12,9 @@ import configparser
 import os
 from os import path
 
-from common.constants import *
-from common.directory import directory
-from utils.util import *
+from common import constants
+from common import directory
+from utils import *
 
 """
 配置服务基础父类
@@ -25,7 +25,7 @@ class Config(object):
         # 初始化配置文件
         self.config_path = config_path
         self.config = configparser.ConfigParser()
-        self.config.read(self.config_path, DEFAULT_CHARSET)
+        self.config.read(self.config_path, constants.DEFAULT_CHARSET)
 
     def add_config(self, section, key, value):
         pass
@@ -66,3 +66,6 @@ class MongoConfig(Config):
             return None
     def get_name(self):
         return self.config.get(self.SECTION, 'name')
+
+poseidonConfig = PoseidonConfig()
+mongoConfig = MongoConfig()

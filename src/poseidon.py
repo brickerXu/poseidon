@@ -6,7 +6,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 
-from windows.poseidon import Poseidon
+from windows import Poseidon
 
 '''
 程序主入口

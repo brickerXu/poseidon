@@ -5,8 +5,8 @@
 
 from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError
-from utils.util import *
-from mongo.errors import *
+from utils import *
+from .errors import *
 
 # mongoDB默认主机和端口
 HOST = 'localhost'
@@ -44,8 +44,9 @@ class Mongo(object):
 
     def get_collection(self, database, collection):
         collections = self.get_collections(database)
+        db = self.get_database(database)
         if collection in collections:
-            return collections[collection]
+            return db[collection]
         else:
             raise CollectionNotFoundError
 
