@@ -57,15 +57,26 @@ class MongoConfig(Config):
         super(MongoConfig, self).__init__(directory.mongo_config_path)
         self.SECTION = 'default'
     def get_host(self):
-        return self.config.get(self.SECTION, 'host')
+        if self.__has_option__(self.SECTION, 'host'):
+            return self.config.get(self.SECTION, 'host')
+        return None
     def get_port(self):
-        port = self.config.get(self.SECTION, 'port')
-        if is_number(port):
-            return int(port)
-        else:
-            return None
+        if self.__has_option__(self.SECTION, 'port'):
+            port = self.config.get(self.SECTION, 'port')
+            if is_number(port):
+                return int(port)
+        return None
     def get_name(self):
-        return self.config.get(self.SECTION, 'name')
+        if self.__has_option__(self.SECTION, 'name'):
+            return self.config.get(self.SECTION, 'name')
+        return None
+
+    def __has_option__(self, section, option):
+        if section is None:
+            section = self.SECTION
+        if option is None:
+            return False
+        return self.config.has_section(section) and self.config.has_option(section, option)
 
 poseidonConfig = PoseidonConfig()
 mongoConfig = MongoConfig()

@@ -30,8 +30,10 @@ class Logger(object):
         message = self.__format_log__(tag, log)
         self.logger_debug.debug(message)
 
-    def error(self, tag, log):
+    def error(self, tag, log, exc=None):
         message = self.__format_log__(tag, log)
+        if exc is not None:
+            message = "%s:\n%s" % (message, exc)
         self.logger_error.error(message)
 
     def warning(self, tag, log):
